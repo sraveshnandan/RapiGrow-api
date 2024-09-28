@@ -1,33 +1,50 @@
-import AdminJS from 'adminjs'
-import AdminJSExpress from '@adminjs/express'
-import express from 'express'
-import { connectToDB } from './database'
+import express from 'express';
+import { connectToDB } from './database';
+import { BASE_URL, PORT } from './config';
+import { adminRouter } from './libs';
+import healthRoutes from "./routes/health.routes";
+import AuthRoutes from "./routes/auth.routes";
+import ProductsRoutes from "./routes/product.routes";
+import orderRoutes from "./routes/order.routes";
+import session from 'express-session';
+import http from "http";
+import cors from "cors";
+import { Server } from 'socket.io';
 
-const app = express()
+// Express server
+const app = express();
+const httpServer = http.createServer(app);
+const io = new Server(httpServer);
 
-const admin = new AdminJS({
-    branding: {
-        companyName: "XecureCode",
-        logo: "",
-        withMadeWithLove: false
-    }
+// Middlewares 
+app.use(express.json());
+app.use(cors());
+
+// Set up session
+app.use(session({
+    secret: 'your-secret-key',
+    resave: true,
+    saveUninitialized: true,
+}));
+
+// Routes 
+app.use("/admin", adminRouter);
+app.use("/api/v1", healthRoutes, AuthRoutes, ProductsRoutes, orderRoutes);
+
+// Create HTTP server
+
+io.on("connection", (socket) => {
+    console.log("hi")
 })
 
-const adminRouter = AdminJSExpress.buildRouter(admin)
-
-
-app.use("/admin", adminRouter)
-
-
+// Server start function 
 const start = async () => {
-
-    connectToDB().then(() => {
-        app.listen(4000, () => {
-            console.log(`Server started on http://localhost:4000`)
-            console.log(`AdminJS started on http://localhost:4000/admin`)
-        })
-    })
+    await connectToDB();
+    httpServer.listen(PORT, () => {
+        console.log(`Server started on ${BASE_URL}:${PORT}`);
+        console.log(`AdminJS started on ${BASE_URL}:${PORT}/admin`);
+    });
 }
 
+start();
 
-start()

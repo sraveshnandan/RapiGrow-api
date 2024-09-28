@@ -1,0 +1,12 @@
+# genral config 
+PORT=8000
+NODE_ENV=development
+COOKIE_SECRET=randometetst
+ACCESS_TOKEN_SECRET=kaskhsdhjkhduiyweq73y2t3uy2t23
+REFRESH_TOKEN_SECRET=hadjkhajhdjkhadkjhkhhjkads
+BASE_URL=http://127.0.0.1
+
+# database secrets 
+MONGO_URI=mongodb+srv://sravesh:5L7e9Pv8bg5YifOA@quiccommerce.bw1o0.mongodb.net/quik_commerce
+
+# cdn secrets 
