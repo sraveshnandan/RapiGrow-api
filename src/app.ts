@@ -6,6 +6,7 @@ import healthRoutes from "./routes/health.routes";
 import AuthRoutes from "./routes/auth.routes";
 import ProductsRoutes from "./routes/product.routes";
 import orderRoutes from "./routes/order.routes";
+import categoryRoutes from "./routes/category.routes";
 import session from 'express-session';
 import http from "http";
 import cors from "cors";
@@ -29,7 +30,7 @@ app.use(session({
 
 // Routes 
 app.use("/admin", adminRouter);
-app.use("/api/v1", healthRoutes, AuthRoutes, ProductsRoutes, orderRoutes);
+app.use("/api/v1", healthRoutes, AuthRoutes, ProductsRoutes, orderRoutes, categoryRoutes);
 
 // Create HTTP server
 

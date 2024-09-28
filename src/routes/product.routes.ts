@@ -4,6 +4,6 @@ import { getAllProducts, GetProductByCategory } from "../controllers/product.con
 const router = Router();
 
 router.route("/products").get(getAllProducts);
-router.route("/product/:categoryId").get(GetProductByCategory)
+router.route("/products/:categoryId").get(GetProductByCategory)
 
 export default router

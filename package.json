@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "/dist/app.js",
   "author": "Sravesh Nandan",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "NODE_ENV=production node dist/app.js",
